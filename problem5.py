@@ -7,17 +7,18 @@ CORRECT ANSWER:
 232792560
 
 '''
+
+import math
+
 def prod(n):
     """Generate the smallest positive number that is evenly divisible by all the
     numbers from 1 to n.
 
-    The idea I'm going for is: 
-
-    - iterate from n to 1, backwards
-    - find the prime factors of each n and keep track of the most instances of each
-      prime factor
-    - multiple the count together at the end
+    The lcm of all the numbers from 1 to n is the union of all the sets of
+    primes in the prime factorization of each number. This solution calculates
+    the answer iteratively.
     """ 
+
     prod_array = [[1]]*(n+1)
     for number in range(n, 1, -1):
         factors = prime_factors(number)
@@ -30,6 +31,21 @@ def prod(n):
         total *= prod_array[index][0]**len(prod_array[index])
     return total
 
+def brute_force(n):
+    """Should do the same thing as prod.
+    """
+    number = 1
+    check = False
+    while number <= math.factorial(n):
+        for i in range(1, n+1):
+            if number % i != 0:
+                check = False
+                break
+            else:
+                check = True
+        if check == True:
+            return number
+    return None
 
 def prime_factors(n):
     """Returns the prime factorization of n in a list.
@@ -44,7 +60,8 @@ def prime_factors(n):
 
 
 def sieve(n):
-    """This function I learned how to write just for fun. Totally useless.
+    """The sieve of eratosthenes, used to extract primes (and composites)
+    from a list of numbers 1 to n.
     """
     primes_list = [x for x in range(2, n+1)]
     composites_list = list() 
