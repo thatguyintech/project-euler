@@ -32,10 +32,18 @@ class MemoizeAndList:
             self.memo[args] = result
         return self.memo[args]
 
-fibo = MemoizeAndList(fibo) 
+def sum_memoized_fib(max):
+    fibo = MemoizeAndList(fibo) 
+    x = 1
+    while fibo(x) <= max:
+        x += 1
+    return fibo.total
 
-x = 1
-while fibo(x) <= 4000000:
-    x += 1
+def sum_even_fibs(max):
+    x = y = 1
+    sum = 0
+    while x <= max and y <= max:
+        sum += (x + y)
+        x, y = x + 2*y, 2*x + 3*y
+    return sum
 
-fibo.total

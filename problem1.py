@@ -17,4 +17,8 @@ def sum3or5(start_num, max_num):
             total += x
     return total 
 
+# list comprehension: do (<this> to <x>) for <x> in <list>
+
+def sumz(start, max):
+    return sum([x for x in range(start, max) if x % 3 == 0 or x % 5 == 0])
 
